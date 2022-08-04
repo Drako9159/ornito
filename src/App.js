@@ -3,7 +3,8 @@ import './App.css';
 import React from 'react';
 import tasks from "./example/tasks.json";
 import Tasks from './components/Tasks';
-
+import TaskForm from './components/TaskForm';
+import Posts from './components/Posts';
 /* function HelloWordl(props){
   return (
     <div id="hello">
@@ -37,20 +38,42 @@ class HelloWordl extends React.Component{
 }*/
 class App1 extends React.Component{
   state = {
-    
     tasks: tasks
-    
-
   }
+  addTask = (title, description) => {
+    console.log(title, description);
+    const newTask = {
+      title: title,
+      description: description,
+      id: this.state.tasks.length + 1,
+    }
+    this.setState({
+      tasks: [...this.state.tasks, newTask]
+    })
+  }
+  deleteTask = (id) => {
+    const newTasks = this.state.tasks.filter(e => e.id !== id)
+    this.setState({tasks: newTasks})
+    console.log(newTasks);
+  }
+  checkDone = (id) => {
+    const newTask = this.state.tasks.map(e => {
+      if(e.id === id){
+        e.done = !e.done
+      }
+      return e
+  })
+  this.setState({tasks: newTask})
+  };
   render(){
     return <div>
-      <Tasks tasks={this.state.tasks}/>
+      <TaskForm addTask={this.addTask}/>
+      <Tasks tasks={this.state.tasks} deleteTask={this.deleteTask} checkDone={this.checkDone}/>
+      <Posts />
     </div>
   }
 }
-
 //const App = () => <div> Hello world : <HelloWordl/> </div>
-
 function App() {
   return (
     <div>

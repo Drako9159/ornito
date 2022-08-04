@@ -21,8 +21,8 @@ class Task extends React.Component{
         {task.title} - 
         {task.description} - 
         {task.done}
-        <input type="checkbox"></input>
-        <button style={btnDelete}>x</button>
+        <input type="checkbox" onChange={this.props.checkDone.bind(this, task.id)}></input>
+        <button style={btnDelete} onClick={this.props.deleteTask.bind(this, task.id)}>x</button>
         </div>
     }
 }
