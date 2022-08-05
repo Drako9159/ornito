@@ -11,12 +11,16 @@ class TaskForm extends React.Component{
             [e.target.name]: e.target.value
             
         })
-
-        
     }
     onSubmit = (e) => {
         this.props.addTask(this.state.title, this.state.description);
         e.preventDefault();
+    }
+    handleKeyPress = (e) => {
+        if (e.key === 'Enter' && this.state.title !== "" && this.state.description !== "") {
+            console.log("saludos");
+            this.props.addTask(this.state.title, this.state.description);
+        }
     }
     render(){
         
@@ -33,7 +37,8 @@ class TaskForm extends React.Component{
             <textarea 
             placeholder="write a description" 
             name="description"
-            onChange={this.onChange} 
+            onChange={this.onChange}
+            onKeyDown={this.handleKeyPress}
             value={this.state.description}>
             </textarea>
             

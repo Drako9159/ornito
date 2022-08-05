@@ -5,6 +5,8 @@ import tasks from "./example/tasks.json";
 import Tasks from './components/Tasks';
 import TaskForm from './components/TaskForm';
 import Posts from './components/Posts';
+import { BrowserRouter, Routes, Route, Link} from 'react-router-dom';
+
 /* function HelloWordl(props){
   return (
     <div id="hello">
@@ -67,9 +69,24 @@ class App1 extends React.Component{
   };
   render(){
     return <div>
-      <TaskForm addTask={this.addTask}/>
-      <Tasks tasks={this.state.tasks} deleteTask={this.deleteTask} checkDone={this.checkDone}/>
-      <Posts />
+      
+      <BrowserRouter>
+      <Link to="/posts">Posts</Link>
+      <Link to="/">Home</Link>
+        <Routes>
+          
+          <Route path="/posts" element={<Posts />}></Route>
+          
+          <Route exect path="/" element={<><Tasks tasks={this.state.tasks}
+                deleteTask={this.deleteTask}
+                checkDone={this.checkDone}/><TaskForm addTask={this.addTask}/></>}></Route>
+        </Routes>
+      </BrowserRouter>
+   
+      
+                
+      
+     
     </div>
   }
 }
